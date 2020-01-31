@@ -1,0 +1,205 @@
+<div class="row justify-content-center">
+    <div class="col-12">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-facture-heading">Create or edit a Facture</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!facture.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_client">Client</label>
+                    <select class="form-control" id="field_client" name="client" formControlName="clientId" (change)="onClientSelect()">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.id}} - {{clientOption.clientName}}</option>
+                    </select>
+                </div>
+                <div *ngIf="selectedClient!==null">
+                    <!-- <h4>Nom Complet</h4>
+                    <p></p> -->
+                    <div class="row">
+                        <div class="col">
+                            <h5>Adresse</h5>
+                            <p>{{selectedClient.adresse}}</p>
+                        </div>
+                        <div class="col">
+                            <h5>Localite</h5>
+                            <p>{{selectedClient.localite}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- <div class="col">
+                            <h5>Categorie</h5>
+                            <p>{{selectedClient.categorie}}</p>
+                        </div> -->
+                        <div class="col">
+                            <h5>Compte</h5>
+                            <p>{{selectedClient.compte}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dateFacturation">Date Facturation</label>
+                    <div class="d-flex">
+                        <input id="field_dateFacturation" type="date" class="form-control" name="dateFacturation" formControlName="dateFacturation" placeholder="YYYY-MM-DD"/>
+                    </div>
+                    <div *ngIf="editForm.get('dateFacturation').invalid && (editForm.get('dateFacturation').dirty || editForm.get('dateFacturation').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('dateFacturation').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('dateFacturation').errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+
+
+            </div>
+                <!-- Details facture vue -->
+        <div class="table-responsive" *ngIf="detailsFactures">
+                <table class="table table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                    <!-- <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                    <th jhiSortBy="produitId"><span>Produit</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="qteProduit"><span>Qte Produit</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <!-- <th jhiSortBy="factureId"><span>Facture</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+
+                        <td>
+                            <select class="form-control" id="field_produit" name="DFAproduitId" [(ngModel)]="detailFactureToAdd.produitId" [ngModelOptions]="{standalone: true}">
+                                <option [ngValue]="null">-- Selectionner un produit --</option>
+                                <option [ngValue]="produitOption.id" *ngFor="let produitOption of produits; trackBy: trackProduitById">{{produitOption.libelle}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="form-control" type="number" placeholder="quantité" [(ngModel)]="detailFactureToAdd.qteProduit" [ngModelOptions]="{standalone: true}" />
+                        </td>
+                        <td>
+                            <textarea class="form-control" name="" id="" cols="30" rows="2" [(ngModel)]="detailFactureToAdd.description" [ngModelOptions]="{standalone: true}"></textarea>
+                        </td>
+                        <td>
+                            <button  [disabled]="detailFactureToAdd.qteProduit === null || detailFactureToAdd.produitId ===null"
+                                (click)="saveDetailsFacture(facture.id); $event.preventDefault()"
+                                class="btn btn-success btn-sm"
+                                style="color: white">
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                                <span class="d-none d-md-inline">Add</span>
+                            </button>
+                        </td>
+
+                    </tr>
+                    <tr *ngFor="let detailsFacture of detailsFactures ;trackBy: trackId">
+                        
+                        <td>
+                            <div *ngIf="detailsFacture.produitId">
+                                <a *ngIf="rowToEditId!==detailsFacture.id" >{{detailsFacture.produitName}}</a>
+                                <select  *ngIf="rowToEditId===detailsFacture.id" class="form-control" id="field_produit" name="produitId" [(ngModel)]="detailFactureToSave.produitId" [ngModelOptions]="{standalone: true}">
+                                    <option [ngValue]="null"></option>
+                                    <option [ngValue]="produitOption.id" *ngFor="let produitOption of produits; trackBy: trackProduitById">{{produitOption.libelle}}</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td *ngIf="rowToEditId!==detailsFacture.id">{{detailsFacture.qteProduit}}</td>
+                        <td *ngIf="rowToEditId!==detailsFacture.id">{{detailsFacture.description}}</td>
+                        <!-- inline crud -->
+                        <td *ngIf="rowToEditId===detailsFacture.id">
+                            <input class="form-control" type="number" placeholder="quantité" [(ngModel)]="detailFactureToSave.qteProduit" [ngModelOptions]="{standalone: true}" />
+                        </td>
+                        <td *ngIf="rowToEditId===detailsFacture.id">
+                            <textarea class="form-control" name="" id="" cols="30" rows="2" [(ngModel)]="detailFactureToSave.description" [ngModelOptions]="{standalone: true}"></textarea>
+                        </td>
+                        
+                        <!-- -- -->
+                        <!-- id facture -->
+                        <!-- <td>
+                            <div *ngIf="detailsFacture.factureId">
+                                <a *ngIf="rowToEditId!==detailsFacture.id" >{{detailsFacture.factureId}}</a>
+                                <select  *ngIf="rowToEditId===detailsFacture.id" class="form-control" id="field_facture" name="factureId" [(ngModel)]="detailFactureToSave.factureId" [ngModelOptions]="{standalone: true}">
+                                    <option [ngValue]="null"></option>
+                                    <option [ngValue]="factureOption.id" *ngFor="let factureOption of factures; trackBy: trackFactureById">{{factureOption.id}}</option>
+                                </select>
+                            </div>
+                        </td> -->
+                        <!-- -- -->
+
+                        <td class="text-right">
+                            <div class="btn-group">
+
+                                <a *ngIf="rowToEditId!==detailsFacture.id"
+                                    (click)="setRowToEdit(detailsFacture.id)"
+                                   class="btn btn-primary btn-sm"
+                                   style="color: white"
+                                   >
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </a>
+                                <a *ngIf="rowToEditId===detailsFacture.id"
+                                    (click)="cancelEdit()"
+                                   class="btn btn-warning btn-sm"
+                                   style="color: white"
+                                   >
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">cancel</span>
+                                </a>
+                                <a *ngIf="rowToEditId===detailsFacture.id"
+                                    (click)="saveDetailsFacture(detailsFacture.id)"
+                                   class="btn btn-success btn-sm"
+                                   style="color: white"
+                                   >
+                                    <fa-icon [icon]="'save'"></fa-icon>
+                                    <span class="d-none d-md-inline">Save</span>
+                                </a>
+                                <!-- <button [routerLink]="['/details-facture', detailsFacture.id, 'edit']"
+                                        class="btn btn-primary btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button> -->
+                                <a (click)="openModal(detailsFacture.id)"
+                                        style="color: white"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #template>
+                    <div class="modal-header">
+                    <h4 class="modal-title">Attention !</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    <p> êtes-vous sûre ?</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="confirmDelete()">Delete</button>
+                    </div>
+            </ng-template>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

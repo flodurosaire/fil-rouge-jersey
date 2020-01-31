@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="now" value="now()" dbms="mysql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
+
+    <include file="config/liquibase/changelog/20200124102812_changelog.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <!-- <include file="config/liquibase/changelog/20190707223034_changelog.xml" relativeToChangelogFile="false"/>
+	<include file="config/liquibase/changelog/20190710133518_changelog.xml" relativeToChangelogFile="false"/>
+	<include file="config/liquibase/changelog/20190712144008_changelog.xml" relativeToChangelogFile="false"/> -->
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <!-- <include file="config/liquibase/changelog/20190712175229_changelog.xml" relativeToChangelogFile="false"/> -->
+    <!-- <include file="config/liquibase/changelog/20190901174411_changelog.xml" relativeToChangelogFile="false"/> -->
+
+</databaseChangeLog>

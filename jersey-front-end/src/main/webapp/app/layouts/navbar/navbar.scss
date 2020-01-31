@@ -1,0 +1,140 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+/* ==========================================================================
+Navbar
+========================================================================== */
+
+.navbar-version {
+  font-size: 0.65em;
+  color: $navbar-dark-color;
+}
+
+.profile-image {
+  height: 1.75em;
+  width: 1.75em;
+}
+
+.navbar {
+  padding: 0.2rem 1rem;
+
+  ul.navbar-nav {
+    .nav-item {
+      margin-left: 0.5em;
+    }
+  }
+
+  a.nav-link {
+    font-weight: 400;
+  }
+}
+
+/* ==========================================================================
+left-Navbar
+========================================================================== */
+
+body {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  background: #354545;
+}
+.main_sidebar {
+
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%;
+  transition: all 300ms cubic-bezier(0.65, 0.05, 0.36, 1);
+  will-change: left, width;
+  box-shadow: inset -1px 0 10px rgba(0, 0, 0, 0.4);
+  background: #293749;
+}
+nav{
+  box-shadow: 0px 1px 5px black;
+  z-index: 100;
+}
+.div_bottom{
+  height: 100%;
+}
+.side_bar{
+  background-color: #253238;
+  color: lightgray;
+  padding-right: 0;
+  padding-top: 5%;
+  // margin-right: 16%;
+}
+aside{
+  min-width: 60px;
+}
+aside > div > a{
+  // padding-top: 15%;
+  height: 58px;
+  margin-right: 0;
+  color:lightgray !important;
+  display: block;
+}
+aside div span{
+  font-size :40px;
+  color:lightgray !important;
+}
+aside div i:hover{
+  color:white;
+}
+.side_back{
+  background-color: #293749;
+  font-weight: bold;
+  height:100%;
+  padding-top: 5%;
+}
+aside a{
+  color: lightgray;
+}
+aside a:hover{
+  text-decoration: underline;
+  color: white !important;
+}
+.drop_back{
+  background-color: #343a40;
+  border-color: #fff;
+}
+.drop_back a{
+  color: #fff;
+}
+.flex{
+  display:flex;
+}
+
+@media only screen and (max-width:1300px){
+  #side_text{display: none;}
+  .side_bar{ background-color: #293749; max-width: 80px; }
+  aside div span{ font-size: 30px;}
+  // aside > div > a{padding-top: 50%;}
+
+}
+@media only screen and (max-width:880px){
+  .hide{display: none;}
+  .inherit{display:inherit !important;}
+  .side_bar{padding-top: 10%;}
+}
+@media only screen and (max-width:550px){
+  aside div span{font-size: 20px;}
+  .side_bar{padding-top: 18%;}
+
+}
+
+
+
+
+/* ==========================================================================
+Logo styles
+========================================================================== */
+.logo-img {
+  height: 45px;
+  width: 45px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../../content/images/digitar_logo.png') no-repeat center center;
+  background-size: contain;
+}

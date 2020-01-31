@@ -1,0 +1,137 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-1">
+        <createTable tableName="client">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="clientPK"/>
+            </column>
+            <column name="adresse" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="categorie" type="VARCHAR(255)"/>
+            <column name="compte" type="VARCHAR(255)"/>
+            <column name="localite" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-2">
+        <createTable tableName="depense">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="depensePK"/>
+            </column>
+            <column name="date_facturation" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="libelle" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="montant" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_depense_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-3">
+        <createTable tableName="details_facture">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="details_facturePK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="qte_produit" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="facture_id" type="BIGINT"/>
+            <column name="produit_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-4">
+        <createTable tableName="facture">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="facturePK"/>
+            </column>
+            <column name="date_facturation" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-5">
+        <createTable tableName="jhi_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="jhi_userPK"/>
+            </column>
+            <column name="activated" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activation_key" type="VARCHAR(20)"/>
+            <column name="email" type="VARCHAR(254)"/>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="image_url" type="VARCHAR(256)"/>
+            <column name="lang_key" type="VARCHAR(6)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="login" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reset_date" type="datetime"/>
+            <column name="reset_key" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-6">
+        <createTable tableName="produit">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="produitPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="libelle" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="prix" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="qte_stock" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-7">
+        <createTable tableName="type_depense">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="type_depensePK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="libelle" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-8">
+        <addUniqueConstraint columnNames="user_id" constraintName="UC_CLIENTUSER_ID_COL" tableName="client"/>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-9">
+        <addUniqueConstraint columnNames="email" constraintName="UC_JHI_USEREMAIL_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-10">
+        <addUniqueConstraint columnNames="login" constraintName="UC_JHI_USERLOGIN_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-11">
+        <addForeignKeyConstraint baseColumnNames="produit_id" baseTableName="details_facture" constraintName="FK55xrfxagalap43qtww7s16j7b" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="produit" validate="true"/>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-12">
+        <addForeignKeyConstraint baseColumnNames="type_depense_id" baseTableName="depense" constraintName="FKadt6h0hab740rhcnofxkk2gwk" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="type_depense" validate="true"/>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-13">
+        <addForeignKeyConstraint baseColumnNames="client_id" baseTableName="facture" constraintName="FKkimq62662qs9wrpfvsw8mcnvf" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="client" validate="true"/>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-14">
+        <addForeignKeyConstraint baseColumnNames="facture_id" baseTableName="details_facture" constraintName="FKkl3epqvcqb29f99i2wnvn163n" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="facture" validate="true"/>
+    </changeSet>
+    <changeSet author="EL IMALI Hasna (generated)" id="1566227292150-15">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="client" constraintName="FKrll00svkowpspnn2mk5ga84sk" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

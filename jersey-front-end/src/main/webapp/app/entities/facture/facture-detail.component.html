@@ -1,0 +1,101 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="facture">
+            <h2><span>Facture</span> {{facture.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Date Facturation</span></dt>
+                <dd>
+                    <span>{{facture.dateFacturation | date: 'dd/MM/yyyy'}}</span>
+                    <!-- <span>{{facture.dateFacturation}}</span> -->
+                </dd>
+                <div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                    <dt><span>Client</span></dt>
+                    <dd>
+                        <div *ngIf="facture.clientId">
+                            <a [routerLink]="['/client', facture.clientId, 'view']">{{facture.clientName}}</a>
+                        </div>
+                    </dd>
+                </div>
+            </dl>
+            <br />
+        <div class="row">
+            <div class="col-3">
+                <h3>Details Facture</h3>
+            </div>
+            <div class="col-9">
+                <hr>
+            </div>
+        </div>
+            <!-- Details facture calcule -->
+        <div class="table-responsive" *ngIf="detailsFactures">
+            <table class="table table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                <th jhiSortBy="produitId"><span>Produit</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="qteProduit"><span>Qte Produit</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="qteProduit"><span>Prix Produit</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="qteProduit"><span>Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let detailsFacture of detailsFactures ;trackBy: trackId">
+                    <td>
+                        <div *ngIf="detailsFacture.produitId">
+                            <a [routerLink]="['../produit', detailsFacture.produitId , 'view' ]" >{{detailsFacture.produitName}}</a>
+                        </div>
+                    </td>
+
+                    <td>{{detailsFacture.qteProduit}}</td>
+                    <td>{{detailsFacture.produitPrix}}</td>
+                    <td>{{detailsFacture.produitPrix * detailsFacture.qteProduit}}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><strong>Total :</strong></td>
+                    <td><strong>{{totalFacture}}</strong></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                    [routerLink]="['/facture', facture.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+        
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Supprimer de</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                  <button type="button" class="btn btn-danger">Supprimer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>

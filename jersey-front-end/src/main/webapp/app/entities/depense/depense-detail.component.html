@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="depense">
+            <h2><span>Depense</span> {{depense.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Libelle</span></dt>
+                <dd>
+                    <span>{{depense.libelle}}</span>
+                </dd>
+                <dt><span>Montant</span></dt>
+                <dd>
+                    <span>{{depense.montant}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{depense.description}}</span>
+                </dd>
+                <dt><span>Date Facturation</span></dt>
+                <dd>
+                    <span>{{depense.dateFacturation | date:'dd/mm/yyyy'}}</span>
+                </dd>
+                <dt><span>Type Depense</span></dt>
+                <dd>
+                    <div *ngIf="depense.typeDepenseId">
+                        <a [routerLink]="['/type-depense', depense.typeDepenseId, 'view']">{{depense.typeDepenseId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/depense', depense.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

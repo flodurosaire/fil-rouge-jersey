@@ -1,0 +1,181 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+
+.hipster {
+  display: inline-block;
+  width: 347px;
+  height: 497px;
+  background: url('../../content/images/digitar_logo.png') no-repeat center top;
+  background-size: contain;
+}
+
+/* wait autoprefixer update to allow simple generation of high pixel density media query */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (-moz-min-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+  .hipster {
+    background: url('../../content/images/digitar_logo.png') no-repeat center top;
+    background-size: contain;
+  }
+}
+
+.border-left-danger {
+  border-left: 5px solid #dc3545;
+}
+.border-left-success {
+  border-left: 5px solid #28a745;
+}
+.border-left-primary {
+  border-left: 5px solid #007bff;
+}
+.border-left-warning {
+  border-left: 5px solid #ffc107;
+}
+body {
+  background-color: #f8f9fc;
+}
+.flex{
+  display:flex;
+}
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+
+.amcharts-g2 {
+  stroke-dasharray: 3px 3px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  -webkit-animation: am-moving-dashes 1s linear infinite;
+  animation: am-moving-dashes 1s linear infinite;
+}
+
+@-webkit-keyframes am-moving-dashes {
+  100% {
+    stroke-dashoffset: -31px;
+  }
+}
+@keyframes am-moving-dashes {
+  100% {
+    stroke-dashoffset: -31px;
+  }
+}
+
+.amcharts-graph-column-front {
+  -webkit-transition: all 0.3s 0.3s ease-out;
+  transition: all 0.3s 0.3s ease-out;
+}
+.amcharts-graph-column-front:hover {
+  fill: #496375;
+  stroke: #496375;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.amcharts-g3 {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 500%;
+  -webkit-animation: am-draw 40s;
+  animation: am-draw 40s;
+}
+@-webkit-keyframes am-draw {
+  0% {
+    stroke-dashoffset: 500%;
+  }
+  100% {
+    stroke-dashoffset: 0%;
+  }
+}
+@keyframes am-draw {
+  0% {
+    stroke-dashoffset: 500%;
+  }
+  100% {
+    stroke-dashoffset: 0%;
+  }
+}
+
+.amcharts-graph-column-front {
+  -webkit-transition: all 0.3s 0.3s ease-out;
+  transition: all 0.3s 0.3s ease-out;
+}
+.amcharts-graph-column-front:hover {
+  fill: #496375;
+  stroke: #496375;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.amcharts-g3 {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 500%;
+  // stroke-dasharray: 0 ;    /* fixes IE prob */
+  // stroke-dashoffset: 0 ;   /* fixes IE prob */
+  -webkit-animation: am-draw 40s;
+  animation: am-draw 40s;
+}
+@-webkit-keyframes am-draw {
+  0% {
+    stroke-dashoffset: 500%;
+  }
+  100% {
+    stroke-dashoffset: 0%;
+  }
+}
+@keyframes am-draw {
+  0% {
+    stroke-dashoffset: 500%;
+  }
+  100% {
+    stroke-dashoffset: 0%;
+  }
+}
+// ----------------------------
+#card_one, #card_two, #card_three, #card_four{
+  font-weight: bold;
+  box-shadow: 4px 4px 5px gray;
+  min-width: 200px;
+}
+#card_one{
+  border-left: solid 5px #50B767;
+}
+#card_one h2{
+  color: #50B767;
+}
+#card_two{
+  border-left: 5px solid #2890FF;
+}
+#card_two h2{
+  color:#2890FF;
+}
+#card_three{
+  border-left: 5px solid #FFC107;
+}
+#card_three h2{
+  color:#FFC107;
+}
+#card_four{
+  border-left: solid 5px #DC3545;
+}
+#card_four h2{
+  color: #DC3545;
+}
+.card_row{
+  padding: 2% 1% 2% 10%;
+}
+.flex{
+  display:flex;
+}
+
+// @media only screen and (max-width:550px){
+//   aside div span{font-size: 20px;}
+//   h2{font-size: 1rem;}
+//   .card_row button, .card_row{font-size: 0.7rem;}
+//   h1{font-size:1.5rem;}
+//   .pagination{padding-left: 15%;}
+// }
